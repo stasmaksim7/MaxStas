@@ -184,26 +184,92 @@
 // 	return 0;
 // }
 
-
-// Задание 8
+//Задание 7
 #include <iostream>
-#include <cmath>
 using namespace std;
-int main(){
-    int Ls[2][2];
+int Vp(int x1, int y1, int x2, int y2){
+    int Product = x1*y2 - x2*y1;
+    if (Product > 0) {
+        return 1;
+    }
+    return 0;
+}
+int main() {
+    int Width = 0;
+    cout << "Введите кол-во вершин выпуклого многоугольника:";
+    cin >> Width;
+    int Ls[2][Width+1];
     char k = 65;
-    for (int i = 0; i < 2;i++){
-        for (int j = 0; j < 2;j++) {
+    for (int i = 0; i < Width; i++){
+        for (int j = 0; j < 2; j++){
             if (j == 0){
-                cout << "Введите координаты X точки " << k <<":";
+                cout << "Введите координату X для точки " << k << ":";
             }
-            else{
-                cout << "Введите координаты Y точки " << k << ":";
+            else {
+                cout << "Введите координату Y для точки " << k << ":";
                 k++;
             }
-            cin >> Ls[i][j];
+            cin >> Ls[j][i];
         }
     }
-    cout << pow((pow(Ls[1][0]-Ls[0][0],2) + pow(Ls[1][1]-Ls[0][1],2)),0.5);
+    Ls[0][Width] = Ls[0][0];
+    Ls[1][Width] = Ls[1][0];
+    int x0Ray;
+    int y0Ray;
+    cout << "Введите координату X точки:";
+    cin >> x0Ray;
+    cout << "Введите координаты Y точки:";
+    cin >> y0Ray;
+    int dxRay = 10000 - x0Ray;
+    int dyRay = 10000 - y0Ray;
+    int dx1;
+    int dx2; 
+    int dy1;
+    int dy2;
+    int n = 0;
+    for (int i = 0; i < Width+1; i++){
+        for (int j = 0; j < 2; j++){
+            if (j == 0){
+                dx1 = Ls[j][i] - x0Ray;
+                dx2 = Ls[j][i+1] - x0Ray;
+            }
+            else{   
+                dy1 = Ls[j][i] - y0Ray;
+                dy2 = Ls[j][i+1] - y0Ray;         
+            }
+        }
+        if ((Vp(dxRay,dyRay,dx1,dy1) + Vp(dxRay,dyRay,dx2,dy2)) == 1){
+            n++;
+        }
+    }
+    if (n % 2 == 1){
+        cout << "Точка лежит внутри выпуклого многоугольника.";
+    }
+    else{
+        cout << "Точка лежит снаружи выпуклого многоугольника.";
+    }
     return 0;
-} 
+}
+
+// Задание 8
+// #include <iostream>
+// #include <cmath>
+// using namespace std;
+// int main(){
+//     int Ls[2][2];
+//     char k = 65;
+//     for (int i = 0; i < 2;i++){
+//         for (int j = 0; j < 2;j++) {
+//             if (j == 0){
+//                 cout << "Введите координаты X точки " << k <<":";
+//             }
+//             else{
+//                 cout << "Введите координаты Y точки " << k << ":";
+//                 k++;
+//             }
+//             cin >> Ls[i][j];
+//         }
+//     }
+//     cout << pow((pow(Ls[1][0]-Ls[0][0],2) + pow(Ls[1][1]-Ls[0][1],2)),0.5);
+//     return 0;
+// } 
