@@ -147,7 +147,7 @@
 // using namespace std;
 // int Vp(int x1, int y1, int x2, int y2){
 //     int Product = x1*y2 - x2*y1;
-//     if (Product > 0) {
+//     if (Product >= 0) {
 //         return 1;
 //     }
 //     return 0;
@@ -185,71 +185,71 @@
 // }
 
 //Задание 7
-#include <iostream>
-using namespace std;
-int Vp(int x1, int y1, int x2, int y2){
-    int Product = x1*y2 - x2*y1;
-    if (Product > 0) {
-        return 1;
-    }
-    return 0;
-}
-int main() {
-    int Width = 0;
-    cout << "Введите кол-во вершин выпуклого многоугольника:";
-    cin >> Width;
-    int Ls[2][Width+1];
-    char k = 65;
-    for (int i = 0; i < Width; i++){
-        for (int j = 0; j < 2; j++){
-            if (j == 0){
-                cout << "Введите координату X для точки " << k << ":";
-            }
-            else {
-                cout << "Введите координату Y для точки " << k << ":";
-                k++;
-            }
-            cin >> Ls[j][i];
-        }
-    }
-    Ls[0][Width] = Ls[0][0];
-    Ls[1][Width] = Ls[1][0];
-    int x0Ray;
-    int y0Ray;
-    cout << "Введите координату X точки:";
-    cin >> x0Ray;
-    cout << "Введите координаты Y точки:";
-    cin >> y0Ray;
-    int dxRay = 10000 - x0Ray;
-    int dyRay = 10000 - y0Ray;
-    int dx1;
-    int dx2; 
-    int dy1;
-    int dy2;
-    int n = 0;
-    for (int i = 0; i < Width+1; i++){
-        for (int j = 0; j < 2; j++){
-            if (j == 0){
-                dx1 = Ls[j][i] - x0Ray;
-                dx2 = Ls[j][i+1] - x0Ray;
-            }
-            else{   
-                dy1 = Ls[j][i] - y0Ray;
-                dy2 = Ls[j][i+1] - y0Ray;         
-            }
-        }
-        if ((Vp(dxRay,dyRay,dx1,dy1) + Vp(dxRay,dyRay,dx2,dy2)) == 1){
-            n++;
-        }
-    }
-    if (n % 2 == 1){
-        cout << "Точка лежит внутри выпуклого многоугольника.";
-    }
-    else{
-        cout << "Точка лежит снаружи выпуклого многоугольника.";
-    }
-    return 0;
-}
+// #include <iostream>
+// using namespace std;
+// int Vp(int x1, int y1, int x2, int y2){
+//     int Product = x1*y2 - x2*y1;
+//     if (Product >= 0) {
+//         return 1;
+//     }
+//     return 0;
+// }
+// int main() {
+//     int Width = 0;
+//     cout << "Введите кол-во вершин выпуклого многоугольника:";
+//     cin >> Width;
+//     int Ls[2][Width+1];
+//     char k = 65;
+//     for (int i = 0; i < Width; i++){
+//         for (int j = 0; j < 2; j++){
+//             if (j == 0){
+//                 cout << "Введите координату X для точки " << k << ":";
+//             }
+//             else {
+//                 cout << "Введите координату Y для точки " << k << ":";
+//                 k++;
+//             }
+//             cin >> Ls[j][i];
+//         }
+//     }
+//     Ls[0][Width] = Ls[0][0];
+//     Ls[1][Width] = Ls[1][0];
+//     int x0Ray;
+//     int y0Ray;
+//     cout << "Введите координату X точки:";
+//     cin >> x0Ray;
+//     cout << "Введите координаты Y точки:";
+//     cin >> y0Ray;
+//     int dxRay = 10000 - x0Ray;
+//     int dyRay = 10000 - y0Ray;
+//     int dx1;
+//     int dx2; 
+//     int dy1;
+//     int dy2;
+//     int n = 0;
+//     for (int i = 0; i < Width+1; i++){
+//         for (int j = 0; j < 2; j++){
+//             if (j == 0){
+//                 dx1 = Ls[j][i] - x0Ray;
+//                 dx2 = Ls[j][i+1] - x0Ray;
+//             }
+//             else{   
+//                 dy1 = Ls[j][i] - y0Ray;
+//                 dy2 = Ls[j][i+1] - y0Ray;         
+//             }
+//         }
+//         if ((Vp(dxRay,dyRay,dx1,dy1) + Vp(dxRay,dyRay,dx2,dy2)) == 1){
+//             n++;
+//         }
+//     }
+//     if (n % 2 == 1){
+//         cout << "Точка лежит внутри выпуклого многоугольника.";
+//     }
+//     else{
+//         cout << "Точка лежит снаружи выпуклого многоугольника.";
+//     }
+//     return 0;
+// }
 
 // Задание 8
 // #include <iostream>
@@ -273,3 +273,145 @@ int main() {
 //     cout << pow((pow(Ls[1][0]-Ls[0][0],2) + pow(Ls[1][1]-Ls[0][1],2)),0.5);
 //     return 0;
 // } 
+
+// Задание 9
+// #include <iostream>
+// using namespace std;
+// int Vp(int x1, int y1, int x2, int y2){
+//     int Product = x1*y2 - x2*y1;
+//     if (Product >= 0) {
+//         return 1;
+//     }
+//     return 0;
+
+// }
+// int main() {
+//     // Ввод первого многоугольника
+//     int Width = 0;
+//     cout << "Введите кол-во вершин первого выпуклого многоугольника:";
+//     cin >> Width;
+//     int Ls[2][Width+1];
+//     char k = 65;
+//     for (int i = 0; i < Width; i++){
+//         for (int j = 0; j < 2; j++){
+//             if (j == 0){
+//                 cout << "Введите координату X для точки " << k << ":";
+//             }
+//             else {
+//                 cout << "Введите координату Y для точки " << k << ":";
+//                 k++;
+//             }
+//             cin >> Ls[j][i];
+//         }
+//     }
+//     Ls[0][Width] = Ls[0][0];
+//     Ls[1][Width] = Ls[1][0];
+
+//     // Ввод второго многоугольника
+//     int Width2 = 0;
+//     cout << "Введите кол-во вершин второго выпуклого многоугольника:";
+//     cin >> Width2;
+//     int Ls2[2][Width2+1];
+//     for (int i = 0; i < Width2; i++){
+//         for (int j = 0; j < 2; j++){
+//             if (j == 0){
+//                 cout << "Введите координату X для точки " << k << ":";
+//             }
+//             else {
+//                 cout << "Введите координату Y для точки " << k << ":";
+//                 k++;
+//             }
+//             cin >> Ls2[j][i];
+//         }
+//     }
+//     Ls2[0][Width2] = Ls2[0][0];
+//     Ls2[1][Width2] = Ls2[1][0];
+    
+//     // Основная часть 1 (Проверка второго многоугольника относительно первого)
+//     int flag = 0;
+//     for (int i = 0; i < Width2; i++){
+//         int x0Ray = 0;
+//         int y0Ray = 0;
+//         for (int j = 0; j < 2; j++){
+//             if (j == 0){
+//                 int x0Ray = Ls2[j][i];
+//             }
+//             else {
+//                 int y0Ray = Ls2[j][i];
+//             }
+//         }
+//         int dxRay = 10000 - x0Ray;
+//         int dyRay = 10000 - y0Ray;
+//         int dx1;
+//         int dx2; 
+//         int dy1;
+//         int dy2;
+//         int n = 0;
+//         for (int i = 0; i < Width+1; i++){
+//             for (int j = 0; j < 2; j++){
+//                 if (j == 0){
+//                     dx1 = Ls[j][i] - x0Ray;
+//                     dx2 = Ls[j][i+1] - x0Ray;
+//                 }
+//                 else{   
+//                     dy1 = Ls[j][i] - y0Ray;
+//                     dy2 = Ls[j][i+1] - y0Ray;         
+//                 }
+//             }
+//             if ((Vp(dxRay,dyRay,dx1,dy1) + Vp(dxRay,dyRay,dx2,dy2)) == 1){
+//                 n++;
+//             }
+//         }
+//         if (n % 2 == 1){
+//             flag = 1;
+//             break;
+//         }
+//     }
+//     // Основная часть 2 (проверка первого многоугольника относительно второго)
+//     int flag2 = 0;
+//     for (int i = 0; i < Width; i++){
+//         int x0Ray = 0;
+//         int y0Ray = 0;
+//         for (int j = 0; j < 2; j++){
+//             if (j == 0){
+//                 int x0Ray = Ls[j][i];
+//             }
+//             else {
+//                 int y0Ray = Ls[j][i];
+//             }
+//         }
+//         int dxRay = 10000 - x0Ray;
+//         int dyRay = 10000 - y0Ray;
+//         int dx1;
+//         int dx2; 
+//         int dy1;
+//         int dy2;
+//         int n2 = 0;
+//         for (int i = 0; i < Width2+1; i++){
+//             for (int j = 0; j < 2; j++){
+//                 if (j == 0){
+//                     dx1 = Ls2[j][i] - x0Ray;
+//                     dx2 = Ls2[j][i+1] - x0Ray;
+//                 }
+//                 else{   
+//                     dy1 = Ls2[j][i] - y0Ray;
+//                     dy2 = Ls2[j][i+1] - y0Ray;         
+//                 }
+//             }
+//             if ((Vp(dxRay,dyRay,dx1,dy1) + Vp(dxRay,dyRay,dx2,dy2)) == 1){
+//                 n2++;
+//             }
+//         }
+//         if (n2 % 2 == 1){
+//             flag2 = 1;
+//             break;
+//         }
+//     }
+//     if (flag + flag2 > 0){
+//         cout << "Многоугольники пересекаются.";
+//     }
+//     else {
+//         cout << "Многоугольники не пересекаются.";
+//     }
+
+// }
