@@ -73,7 +73,7 @@
 //	return 0;
 //}
 
-// Задача 4 - неверно
+// Задача 4
 
 //#include <iostream>
 //using namespace std;
@@ -142,10 +142,68 @@
 // 	return 0;
 // }
 
-// Задача 6 - недоделано
-//#include <iostream>
-//using namespace std;
-//int main() {
-//	return 0;
-//}
-//
+// Задача 6
+// #include <iostream>
+// using namespace std;
+// int Vp(int x1, int y1, int x2, int y2){
+//     int Product = x1*y2 - x2*y1;
+//     if (Product > 0) {
+//         return 1;
+//     }
+//     return 0;
+// }
+// int main() {
+//     int Ls[2][4];
+//     char k = 65;
+//     for (int i = 0; i < 4; i++) {
+//         for (int j = 0; j < 2; j++) {
+//             if (j == 0){
+//                 cout << "Введите координату X точки " << k << ":"; 
+//             }
+//             else {
+//                 cout << "Введите координату Y точки " << k << ":";
+//                 k++;
+//             }
+//             cin >> Ls[j][i];
+//         }
+//     }
+//     int Ax = Ls[0][0];
+//     int Ay = Ls[1][0];
+//     int ABx = Ls[0][1] - Ax;
+//     int ABy = Ls[1][1] - Ay;
+//     int ACx = Ls[0][2] - Ax;
+//     int ACy = Ls[1][2] - Ay;
+//     int ADx = Ls[0][3] - Ax;
+//     int ADy = Ls[1][3] - Ay;
+//     if (Vp(ABx,ABy,ACx,ACy) + Vp(ABx,ABy,ADx,ADy) == 1) {
+//         cout << "Отрезки пересекаются";
+//     }
+//     else {
+//         cout << "Отрезки не пересекаются";
+//     }
+// 	return 0;
+// }
+
+
+// Задание 8
+#include <iostream>
+#include <cmath>
+using namespace std;
+int main(){
+    int Ls[2][2];
+    char k = 65;
+    for (int i = 0; i < 2;i++){
+        for (int j = 0; j < 2;j++) {
+            if (j == 0){
+                cout << "Введите координаты X точки " << k <<":";
+            }
+            else{
+                cout << "Введите координаты Y точки " << k << ":";
+                k++;
+            }
+            cin >> Ls[i][j];
+        }
+    }
+    cout << pow((pow(Ls[1][0]-Ls[0][0],2) + pow(Ls[1][1]-Ls[0][1],2)),0.5);
+    return 0;
+} 
