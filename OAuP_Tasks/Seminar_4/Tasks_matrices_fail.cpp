@@ -414,18 +414,89 @@
 // }
 
 // Задание 6
-#include <iostream>
-using namespace std;
-int main(){
-    int Ls[2][2] = {
-        {2,3},
-        {5,-1}
-    };
-    cout << Ls[0][0]*Ls[1][1] - Ls[0][1] * Ls[1][0];
-    return 0;
-}
+// #include <iostream>
+// using namespace std;
+// int Pr(int Ls[2][2]){
+//     return Ls[0][0]*Ls[1][1] - Ls[1][0]*Ls[0][1];
+// }
+// int main(){
+//     int Ls[2][2] = {
+//         {2,3},
+//         {5,-1}};
+//     int t1,t2;
+//     t1 = 13;
+//     t2 = 9;
+//     int Ls1[2][2] = {
+//         {2,t1},
+//         {5,t2}};
+//     int Ls2[2][2] = {
+//         {t1, 3},
+//         {t2,-1}};
+//     float d = Pr(Ls);
+//     float dx = Pr(Ls2);
+//     float dy = Pr(Ls1);
+//     float x = dx/d;
+//     float y = dy/d;
+//     cout << x << " " << y;
+//     return 0;
+// }
 
-    
+// Задание 7 и 8
+// #include <iostream>
+// using namespace std;
+// int Pr(int Ls[3][3]){
+//     return Ls[0][0]*Ls[1][1]*Ls[2][2] + Ls[1][0]*Ls[2][1]*Ls[0][2] + Ls[0][1]*Ls[1][2]*Ls[2][0] \
+//      - Ls[2][0]*Ls[1][1]*Ls[0][2] - Ls[0][1]*Ls[1][0]*Ls[2][2] - Ls[0][0]*Ls[1][2]*Ls[2][1];
+// }
+// Задание 7
+// int main(){
+//     int Ls[3][3] = {
+//         {1,1,1},
+//         {2,-1,3},
+//         {-1,4,-1}
+//     };
+//     int t1,t2,t3;
+//     t1 = 6;
+//     t2 = 14;
+//     t3 = 2;
+//     int Lsx[3][3] = {{t1,1,1},{t2,-1,3},{t3,4,-1}};
+//     int Lsy[3][3] = {{1,t1,1},{2,t2,3},{-1,t3,-1}};
+//     int Lsz[3][3] = {{1,1,t1},{2,-1,t2},{-1,4,t3}};
+//     float d = Pr(Ls);
+//     float dx = Pr(Lsx);
+//     float dy = Pr(Lsy);
+//     float dz = Pr(Lsz);
+//     float x = dx/d;
+//     float y = dy/d;
+//     float z = dz/d;
+//     cout << x << " " << y << " " << z;
+//     return 0;
+// }
+// Задание 8
+// int main(){
+//     int Ls[3][3] = {
+//         {3,-1,2},
+//         {2,4,-1},
+//         {1,-3,1}
+//     };
+//     int t1,t2,t3;
+//     t1 = 5;
+//     t2 = 6;
+//     t3 = 4;
+//     int Lsx[3][3] = {{t1,-1,2},{t2,4,-1},{t3,-3,1}};
+//     int Lsy[3][3] = {{3,t1,2},{2,t2,-1},{1,t3,1}};
+//     int Lsz[3][3] = {{3,-1,t1},{2,4,t2},{1,-3,t3}};
+//     float d = Pr(Ls);
+//     float dx = Pr(Lsx);
+//     float dy = Pr(Lsy);
+//     float dz = Pr(Lsz);
+//     float x = dx/d;
+//     float y = dy/d;
+//     float z = dz/d;
+//     cout << x << " " << y << " " << z;
+//     return 0;
+
+// }
 
 
 
