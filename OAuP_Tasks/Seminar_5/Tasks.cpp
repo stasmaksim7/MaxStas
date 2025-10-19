@@ -308,109 +308,109 @@
 
 
 // Задание 15
-#include <iostream>
-#include <vector>
-#include <random>
-#include <algorithm>
-#include <numeric>
-using namespace std;
-int main(){
-    vector<vector<double>> VeT(5,vector<double>(30));
-    vector<vector<double>> VeD(5,vector<double>(100));
-    vector<double> VeTSr(5);
-    for (int i = 0; i < 5; i++){
-        random_device rd;
-        mt19937 gen(rd());
-        uniform_real_distribution<double> Tdist(-100.0,100.0),Ddist(0,100);
-        for (int j = 0; j < 30; j++) {VeT[i][j] = Tdist(gen);}
-        for (int j = 0; j < 100; j++) {VeD[i][j] = Ddist(gen);}
-    }
+// #include <iostream>
+// #include <vector>
+// #include <random>
+// #include <algorithm>
+// #include <numeric>
+// using namespace std;
+// int main(){
+//     vector<vector<double>> VeT(5,vector<double>(30));
+//     vector<vector<double>> VeD(5,vector<double>(100));
+//     vector<double> VeTSr(5);
+//     for (int i = 0; i < 5; i++){
+//         random_device rd;
+//         mt19937 gen(rd());
+//         uniform_real_distribution<double> Tdist(-100.0,100.0),Ddist(0,100);
+//         for (int j = 0; j < 30; j++) {VeT[i][j] = Tdist(gen);}
+//         for (int j = 0; j < 100; j++) {VeD[i][j] = Ddist(gen);}
+//     }
 
-    transform(VeT.begin(), VeT.end(), VeTSr.begin(), \
-    [](const vector<double>& channel){return accumulate(channel.begin(), channel.end(), 0.0)/30;});
-    for (int i = 0; i < 5; i++) cout << "Среднее значение канала для " << i+1 << "-ого канала: " << VeTSr[i] << endl;
+//     transform(VeT.begin(), VeT.end(), VeTSr.begin(), \
+//     [](const vector<double>& channel){return accumulate(channel.begin(), channel.end(), 0.0)/30;});
+//     for (int i = 0; i < 5; i++) cout << "Среднее значение канала для " << i+1 << "-ого канала: " << VeTSr[i] << endl;
 
-    cout << endl;
-    vector<double> MaxDK(5);
-    vector<double> MinDK(5);
-    for (int i = 0; i < 5; i++){
-        auto MinMaxD = minmax_element(VeD[i].begin(),VeD[i].end());
-        cout << "Максимальное и минимальное давление для " << i+1 \
-        << "-ого соответственно: " << *MinMaxD.second << " " << *MinMaxD.first << endl;
-        MaxDK[i] = *MinMaxD.second;
-        MinDK[i] = *MinMaxD.first;
-    }
-    cout << endl;
+//     cout << endl;
+//     vector<double> MaxDK(5);
+//     vector<double> MinDK(5);
+//     for (int i = 0; i < 5; i++){
+//         auto MinMaxD = minmax_element(VeD[i].begin(),VeD[i].end());
+//         cout << "Максимальное и минимальное давление для " << i+1 \
+//         << "-ого соответственно: " << *MinMaxD.second << " " << *MinMaxD.first << endl;
+//         MaxDK[i] = *MinMaxD.second;
+//         MinDK[i] = *MinMaxD.first;
+//     }
+//     cout << endl;
     
-    vector<vector<double>> VeTR(5, vector<double>(29));
-    vector<vector<double>> VeDR(5, vector<double>(99));
-	for (int i = 0; i < 5; i++) {
-		transform(VeT[i].begin() + 1, VeT[i].end(), VeT[i].begin(), VeTR[i].begin(),[](double a, double b) { return a - b; });
-        transform(VeD[i].begin() + 1, VeD[i].end(), VeD[i].begin(), VeDR[i].begin(),[](double a, double b) { return a - b; });
-	}
+//     vector<vector<double>> VeTR(5, vector<double>(29));
+//     vector<vector<double>> VeDR(5, vector<double>(99));
+// 	for (int i = 0; i < 5; i++) {
+// 		transform(VeT[i].begin() + 1, VeT[i].end(), VeT[i].begin(), VeTR[i].begin(),[](double a, double b) { return a - b; });
+//         transform(VeD[i].begin() + 1, VeD[i].end(), VeD[i].begin(), VeDR[i].begin(),[](double a, double b) { return a - b; });
+// 	}
 
-    for (int i = 0; i < 5; i++){
-        cout << "Разность значений температуры " << i+1 << "-ого канала: " << endl;
-        for (int j = 0; j < 29; j++){
-            cout << VeTR[i][j] << " ";
-        }
-        cout << endl << endl;
-    }
-    cout << endl;
+//     for (int i = 0; i < 5; i++){
+//         cout << "Разность значений температуры " << i+1 << "-ого канала: " << endl;
+//         for (int j = 0; j < 29; j++){
+//             cout << VeTR[i][j] << " ";
+//         }
+//         cout << endl << endl;
+//     }
+//     cout << endl;
 
-    for (int i = 0; i < 5; i++){
-        cout << "Разность значений давления " << i+1 << "-ого канала: " << endl;
-        for (int j = 0; j < 99; j++){
-            cout << VeDR[i][j] << " ";
-        }
-        cout << endl << endl;
-    }
-    cout << endl;
+//     for (int i = 0; i < 5; i++){
+//         cout << "Разность значений давления " << i+1 << "-ого канала: " << endl;
+//         for (int j = 0; j < 99; j++){
+//             cout << VeDR[i][j] << " ";
+//         }
+//         cout << endl << endl;
+//     }
+//     cout << endl;
 
-    double MaxV = -9999999,R,MaxN;
-    for (int i = 0; i < 5; i++){
-        auto MinMaxT = minmax_element(VeT[i].begin(),VeT[i].end());
-        R = *MinMaxT.second - *MinMaxT.first;
-        if (R > MaxV) {
-            MaxV = R;
-            MaxN = i+1;
-        }
-    }
-    cout << "Наибольшая вариация температур в " << MaxN << "-ом канале:" << MaxV << endl << endl;
+//     double MaxV = -9999999,R,MaxN;
+//     for (int i = 0; i < 5; i++){
+//         auto MinMaxT = minmax_element(VeT[i].begin(),VeT[i].end());
+//         R = *MinMaxT.second - *MinMaxT.first;
+//         if (R > MaxV) {
+//             MaxV = R;
+//             MaxN = i+1;
+//         }
+//     }
+//     cout << "Наибольшая вариация температур в " << MaxN << "-ом канале:" << MaxV << endl << endl;
 
-    vector<vector<double>> norm_VeD(5, vector<double>(100));
-    for (int i = 0; i < 5; i++){
-        double Mx = MaxDK[i];
-        double Mn = MinDK[i];
-        transform(VeD[i].begin(),VeD[i].end(),norm_VeD[i].begin(),[Mx,Mn](double x) {return (x - Mn) / (Mx - Mn);});
-    }
+//     vector<vector<double>> norm_VeD(5, vector<double>(100));
+//     for (int i = 0; i < 5; i++){
+//         double Mx = MaxDK[i];
+//         double Mn = MinDK[i];
+//         transform(VeD[i].begin(),VeD[i].end(),norm_VeD[i].begin(),[Mx,Mn](double x) {return (x - Mn) / (Mx - Mn);});
+//     }
     
-    for (int i = 0; i < 5; i++) {
-		cout << "Нормализированнрое давление канал " << i + 1 << ": ";
-		for_each(norm_VeD[i].begin(), norm_VeD[i].end(),[](double x) { if (x > 0.9) cout << x << " "; });
-		cout << endl;
-	}
+//     for (int i = 0; i < 5; i++) {
+// 		cout << "Нормализированнрое давление канал " << i + 1 << ": ";
+// 		for_each(norm_VeD[i].begin(), norm_VeD[i].end(),[](double x) { if (x > 0.9) cout << x << " "; });
+// 		cout << endl;
+// 	}
 
-    cout << endl;
+//     cout << endl;
+
+//     vector<int> iVe(5);
+// 	iota(iVe.begin(), iVe.end(), 0);
+// 	sort(iVe.begin(), iVe.end(),[&VeTSr](int a, int b) { return VeTSr[a] > VeTSr[b]; });
+
+// 	cout << "Канал с максимальной температурой под номером:" << iVe[0] + 1 << endl;
+
+
+
+//     // for (int i = 0; i < 5; i++){
+//     //     for (int j = 0; j < 30; j++) {cout << VeT[i][j] << " ";}
+//     // }
+//     // for (int i = 0; i < 5; i++){
+//     //     for (int j = 0; j < 100; j++) {cout << VeD[i][j] << " ";}
+//     // }
+
+
     
-    vector<int> iVe(5);
-	iota(iVe.begin(), iVe.end(), 0);
-	sort(iVe.begin(), iVe.end(),[&VeTSr](int a, int b) { return VeTSr[a] > VeTSr[b]; });
-
-	cout << "Канал с максимальной температурой под номером:" << iVe[0] + 1 << endl;
-
-
-
-    // for (int i = 0; i < 5; i++){
-    //     for (int j = 0; j < 30; j++) {cout << VeT[i][j] << " ";}
-    // }
-    // for (int i = 0; i < 5; i++){
-    //     for (int j = 0; j < 100; j++) {cout << VeD[i][j] << " ";}
-    // }
-
-
     
-    
-    return 0;
-}
+//     return 0;
+// }
 
