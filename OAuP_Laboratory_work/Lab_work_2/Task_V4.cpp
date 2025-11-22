@@ -125,3 +125,175 @@
 
 //     return 0;
 // }
+
+#include <iostream>
+#include <fstream>
+#include <vector>
+#include <string>
+#include <algorithm>
+
+using namespace std;
+
+void readDataFromFile(vector<string>& names, vector<string>& types, vector<double>& prices) {
+    ifstream inFile("menu.txt");
+    if (!inFile.is_open()) return;
+    
+    string name, type;
+    double price;
+    while (inFile >> name >> type >> price) {
+        names.push_back(name);
+        types.push_back(type);
+        prices.push_back(price);
+    }
+    inFile.close();
+}
+
+void writeDataToFile(const vector<string>& names, const vector<string>& types, const vector<double>& prices) {
+    ofstream outFile("menu.txt");
+    for (size_t i = 0; i < names.size(); i++) {
+        outFile << names[i] << " " << types[i] << " " << prices[i] << endl;
+    }
+    outFile.close();
+}
+
+void saveToOutput(const string& result) {
+    ofstream outFile("output.txt", ios::app);
+    outFile << result << endl;
+    outFile.close();
+}
+
+void addDish(vector<string>& names, vector<string>& types, vector<double>& prices) {
+    string name, type, priceStr;
+    double price;
+    
+    cout << "Введите название блюда (пустая строка для завершения): ";
+    getline(cin, name);
+    if (name.empty()) return;
+    
+    cout << "Введите тип блюда: ";
+    getline(cin, type);
+    
+    cout << "Введите цену: ";
+    getline(cin, priceStr);
+    price = stod(priceStr);
+    
+    names.push_back(name);
+    types.push_back(type);
+    prices.push_back(price);
+    
+    ofstream menuFile("menu.txt", ios::app);
+    menuFile << name << " " << type << " " << price << endl;
+    menuFile.close();
+    
+    saveToOutput("Добавлено: " + name + " " + type + " " + to_string(price));
+}
+
+void searchDish(const vector<string>& names, const vector<string>& types, const vector<double>& prices) {
+    string searchName;
+    cout << "Введите название блюда для поиска: ";
+    getline(cin, searchName);
+    
+    string result = "Результаты поиска '" + searchName + "':\n";
+    bool found = false;
+    
+    for (size_t i = 0; i < names.size(); i++) {
+        if (names[i] == searchName) {
+            result += names[i] + " " + types[i] + " " + to_string(prices[i]) + "\n";
+            found = true;
+        }
+    }
+    
+    if (!found) {
+        result += "Блюдо не найдено\n";
+    }
+    
+    cout << result;
+    saveToOutput(result);
+}
+
+void sortDishes(vector<string>& names, vector<string>& types, vector<double>& prices) {
+    string choiceStr;
+    cout << "Сортировка по: 1 - типу, 2 - цене: ";
+    getline(cin, choiceStr);
+    int choice = stoi(choiceStr);
+    
+    for (size_t i = 0; i < names.size() - 1; i++) {
+        for (size_t j = 0; j < names.size() - i - 1; j++) {
+            bool needSwap = false;
+            if (choice == 1 && types[j] > types[j + 1]) {
+                needSwap = true;
+            } else if (choice == 2 && prices[j] > prices[j + 1]) {
+                needSwap = true;
+            }
+            
+            if (needSwap) {
+                swap(names[j], names[j + 1]);
+                swap(types[j], types[j + 1]);
+                swap(prices[j], prices[j + 1]);
+            }
+        }
+    }
+    
+    writeDataToFile(names, types, prices);
+    
+    string result = "Сортировка завершена. Критерий: " + to_string(choice) + "\n";
+    cout << result;
+    saveToOutput(result);
+}
+
+void outputByPrice(const vector<string>& names, const vector<string>& types, const vector<double>& prices) {
+    string priceStr;
+    cout << "Введите максимальную цену: ";
+    getline(cin, priceStr);
+    double maxPrice = stod(priceStr);
+    
+    string result = "Блюда с ценой до " + to_string(maxPrice) + ":\n";
+    bool found = false;
+    
+    for (size_t i = 0; i < names.size(); i++) {
+        if (prices[i] <= maxPrice) {
+            result += names[i] + " " + types[i] + " " + to_string(prices[i]) + "\n";
+            found = true;
+        }
+    }
+    
+    if (!found) {
+        result += "Блюда не найдены\n";
+    }
+    
+    cout << result;
+    saveToOutput(result);
+}
+
+int main() {
+    vector<string> names, types;
+    vector<double> prices;
+    
+    readDataFromFile(names, types, prices);
+    
+    string choiceStr;
+    int choice;
+    
+    do {
+        cout << "\n1. Добавить блюдо\n";
+        cout << "2. Поиск блюда\n";
+        cout << "3. Сортировка блюд\n";
+        cout << "4. Вывод по цене\n";
+        cout << "0. Выход\n";
+        cout << "Выбор: ";
+        getline(cin, choiceStr);
+        choice = stoi(choiceStr);
+        
+        switch (choice) {
+            case 1: addDish(names, types, prices); break;
+            case 2: searchDish(names, types, prices); break;
+            case 3: sortDishes(names, types, prices); break;
+            case 4: outputByPrice(names, types, prices); break;
+            case 0: cout << "Выход\n"; break;
+            default: cout << "Неверный выбор\n";
+        }
+    } while (choice != 0);
+    
+    return 0;
+}
+
