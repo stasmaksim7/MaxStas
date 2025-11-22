@@ -86,7 +86,7 @@ void addDish(const string& filename) {
         cout << "Введите цену: ";
         getline(cin, price);
         
-        file << name << ";" << type << ";" << price << "\n";
+        file << name << ";" << type << ";" << price << endl;
         file.close();
         
         cout << "Блюдо успешно добавлено!\n";
@@ -110,7 +110,7 @@ void searchDish(const vector<vector<string>>& data) {
         }
     }
     
-    if (!found) {
+    if (found == false) {
         cout << "Блюдо с названием '" << searchName << "' не найдено.\n";
     }
 }
