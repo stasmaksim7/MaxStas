@@ -1,0 +1,3 @@
+C:/Users/ystas/Desktop/MaxStas/build/CMakeFiles/my_app.dir
+C:/Users/ystas/Desktop/MaxStas/build/CMakeFiles/edit_cache.dir
+C:/Users/ystas/Desktop/MaxStas/build/CMakeFiles/rebuild_cache.dir
